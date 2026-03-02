@@ -8,8 +8,8 @@ const path = require('path');
 
 const OUT = path.resolve(__dirname, '../assets/images');
 
-const BG = '#1C1917';
-const AMBER = '#F59E0B';
+const BG = '#FAFAF9';
+const TEAL = '#0D9488';
 const WHITE = '#FFFFFF';
 
 /**
@@ -41,12 +41,12 @@ function makeSvg(size, bg, fg, fontSize) {
 }
 
 const assets = [
-  { file: 'icon.png', svg: makeSvg(1024, BG, AMBER, 600), size: 1024 },
-  { file: 'splash-icon.png', svg: makeSvg(512, BG, AMBER, 320), size: 512 },
-  { file: 'android-icon-foreground.png', svg: makeSvg(1024, 'transparent', AMBER, 600), size: 1024 },
+  { file: 'icon.png', svg: makeSvg(1024, BG, TEAL, 600), size: 1024 },
+  { file: 'splash-icon.png', svg: makeSvg(512, BG, TEAL, 320), size: 512 },
+  { file: 'android-icon-foreground.png', svg: makeSvg(1024, 'transparent', TEAL, 600), size: 1024 },
   { file: 'android-icon-background.png', svg: makeSvg(1024, BG, BG, 1), size: 1024 },
   { file: 'android-icon-monochrome.png', svg: makeSvg(1024, 'transparent', WHITE, 600), size: 1024 },
-  { file: 'favicon.png', svg: makeSvg(64, BG, AMBER, 40), size: 64 },
+  { file: 'favicon.png', svg: makeSvg(64, BG, TEAL, 40), size: 64 },
 ];
 
 async function run() {

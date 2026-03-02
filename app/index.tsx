@@ -1,13 +1,26 @@
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
 
 import { CategoryCard } from '@/components/category-card';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Colors } from '@/constants/theme';
 import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+const version = Constants.expoConfig?.version ?? '—';
+const buildNumber =
+  Constants.expoConfig?.ios?.buildNumber ??
+  Constants.expoConfig?.android?.versionCode?.toString() ??
+  '—';
+const updateId = Updates.updateId ? Updates.updateId.slice(0, 8) : 'dev';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const scheme = useColorScheme() ?? 'light';
+  const colors = Colors[scheme];
 
   return (
     <ThemedView style={styles.container}>
@@ -31,6 +44,10 @@ export default function HomeScreen() {
               onPress={() => router.push(`/category/${category.id}`)}
             />
           ))}
+
+          <ThemedText type="mono" style={[styles.versionInfo, { color: colors.icon }]}>
+            v{version} ({buildNumber}) · {updateId}
+          </ThemedText>
         </ScrollView>
       </SafeAreaView>
     </ThemedView>
@@ -55,5 +72,11 @@ const styles = StyleSheet.create({
   subtitle: {
     marginBottom: 32,
     opacity: 0.6,
+  },
+  versionInfo: {
+    fontSize: 11,
+    opacity: 0.4,
+    textAlign: 'center',
+    marginTop: 16,
   },
 });
