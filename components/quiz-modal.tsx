@@ -12,6 +12,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { OptionButton } from '@/components/option-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { WebContainer } from '@/components/web-container';
 import { Colors } from '@/constants/theme';
 import { FEEDBACK, getQuestionsForCategory, type CategoryId, type Question } from '@/constants/questions';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -87,6 +88,7 @@ export function QuizModal({ visible, categoryId, onClose }: QuizModalProps) {
       onRequestClose={onClose}
     >
       <ThemedView style={styles.container}>
+        <WebContainer>
         <SafeAreaView style={styles.safeArea}>
           {/* Header */}
           <View style={styles.header}>
@@ -175,6 +177,7 @@ export function QuizModal({ visible, categoryId, onClose }: QuizModalProps) {
             </View>
           )}
         </SafeAreaView>
+        </WebContainer>
       </ThemedView>
     </Modal>
   );

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.expokadi.doyouremember",
+      "sha256_cert_fingerprints": [
+        "F9:B2:B0:D0:BF:E6:AE:24:6D:63:39:2C:7C:10:1D:23:D2:6F:C6:D3:96:4E:FA:51:3D:3D:29:F2:DB:B3:00:04"
+      ]
+    }
+  }
+]

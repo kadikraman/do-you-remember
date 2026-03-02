@@ -7,6 +7,7 @@ import * as Updates from 'expo-updates';
 import { CategoryCard } from '@/components/category-card';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { WebContainer } from '@/components/web-container';
 import { Colors } from '@/constants/theme';
 import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -25,6 +26,7 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <WebContainer>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView
           contentContainerStyle={styles.content}
@@ -51,6 +53,7 @@ export default function HomeScreen() {
           </ThemedText>
         </ScrollView>
       </SafeAreaView>
+      </WebContainer>
     </ThemedView>
   );
 }
