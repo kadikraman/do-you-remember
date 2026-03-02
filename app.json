@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "doyouremember",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.yourname.doyouremember"
@@ -20,7 +19,6 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "package": "com.yourname.doyouremember",
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
@@ -40,7 +38,10 @@
             "backgroundColor": "#1C1917"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
