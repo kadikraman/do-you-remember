@@ -1,0 +1,16 @@
+diff --git a/node_modules/expo-eas-observe/ios/AppMetricsModule.swift b/node_modules/expo-eas-observe/ios/AppMetricsModule.swift
+index 1234567..abcdefg 100644
+--- a/node_modules/expo-eas-observe/ios/AppMetricsModule.swift
++++ b/node_modules/expo-eas-observe/ios/AppMetricsModule.swift
+@@ -54,9 +54,9 @@ public final class ExpoAppMetricsModule: Module {
+
+     Function("setEnvironment") { (environment: String) in
+       AppMetricsActor.isolated {
+-        guard ObserveUserDefaults.environment != environment else { return }
+-        ObserveUserDefaults.environment = environment
+         AppMetrics.storage.currentEntry.environment = environment
++        guard ObserveUserDefaults.environment != environment else { return }
++        ObserveUserDefaults.environment = environment
+         try? AppMetrics.storage.commit()
+       }
+     }

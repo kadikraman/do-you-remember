@@ -40,10 +40,13 @@ export function CategoryCard({ category, questionCount, onPress }: CategoryCardP
         style={[
           styles.card,
           animatedStyle,
-          { backgroundColor: colors.card, borderColor: colors.border },
+          {
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            borderLeftColor: category.color,
+          },
         ]}
       >
-        <View style={[styles.accent, { backgroundColor: category.color }]} />
         <View style={styles.iconWrap}>
           <ThemedText style={styles.emoji}>{category.emoji}</ThemedText>
         </View>
@@ -55,7 +58,7 @@ export function CategoryCard({ category, questionCount, onPress }: CategoryCardP
             {questionCount} questions
           </ThemedText>
         </View>
-        <IconSymbol name="chevron.right" size={18} color={colors.icon} />
+        <IconSymbol name="chevron.right" size={18} color={colors.icon} style={{ marginRight: 16 }} />
       </Animated.View>
     </Pressable>
   );
@@ -67,13 +70,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 14,
     borderWidth: 1,
+    borderLeftWidth: 4,
     marginBottom: 12,
-  },
-  accent: {
-    width: 4,
-    alignSelf: 'stretch',
-    borderTopLeftRadius: 14,
-    borderBottomLeftRadius: 14,
   },
   iconWrap: {
     paddingHorizontal: 14,

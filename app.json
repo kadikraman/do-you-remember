@@ -15,7 +15,10 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.yourname.doyouremember"
+      "bundleIdentifier": "com.expokadi.doyouremember",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +27,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "package": "com.yourname.doyouremember",
+      "package": "com.expokadi.doyouremember",
       "predictiveBackGestureEnabled": false
     },
     "web": {

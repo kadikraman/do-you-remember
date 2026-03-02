@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Pressable } from 'react-native';
+import { ScrollView, StyleSheet, View, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 
@@ -43,8 +44,7 @@ export default function CategoryScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Hero */}
-          <View style={[styles.hero, { borderColor: category.color + '60' }]}>
-            <View style={[styles.accentBar, { backgroundColor: category.color }]} />
+          <View style={[styles.hero, { borderColor: category.color + '60', borderTopColor: category.color }]}>
             <ThemedText style={styles.emoji}>{category.emoji}</ThemedText>
             <ThemedText type="title" style={styles.categoryTitle}>
               {category.label}
@@ -96,18 +96,10 @@ const styles = StyleSheet.create({
   },
   hero: {
     borderWidth: 1.5,
+    borderTopWidth: 4,
     borderRadius: 16,
     padding: 24,
     marginBottom: 20,
-  },
-  accentBar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 4,
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
   },
   emoji: {
     fontSize: 44,
