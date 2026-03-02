@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { useEffect } from 'react';
 
 import { QuizModal } from '@/components/quiz-modal';
 import { ThemedText } from '@/components/themed-text';
