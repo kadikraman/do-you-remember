@@ -1,12 +1,18 @@
 {
   "expo": {
-    "name": "Do You Remember?",
+    "name": "Remember?",
     "slug": "do-you-remember",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "doyouremember",
     "userInterfaceStyle": "automatic",
+    "updates": {
+      "url": "https://u.expo.dev/276fe437-b229-4be3-82f2-99e262ed485c"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.yourname.doyouremember"
@@ -41,11 +47,19 @@
       ],
       "expo-font",
       "expo-image",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-updates"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "276fe437-b229-4be3-82f2-99e262ed485c"
+      }
+    },
+    "owner": "expokadi"
   }
 }
