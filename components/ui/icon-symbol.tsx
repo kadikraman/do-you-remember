@@ -22,6 +22,9 @@ const MAPPING = {
   'curlybraces': 'data-object',
   'xmark': 'close',
   'checkmark': 'check',
+  'paintbrush': 'brush',
+  'function': 'functions',
+  'apple.terminal': 'terminal',
 } satisfies Record<string, ComponentProps<typeof MaterialIcons>['name']>;
 
 /**
