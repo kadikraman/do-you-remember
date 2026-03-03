@@ -16,10 +16,13 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.expokadi.doyouremember",
-      "associatedDomains": ["applinks:do-you-remember.expo.app"],
+      "associatedDomains": [
+        "applinks:do-you-remember.expo.app"
+      ],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "appleTeamId": "XQAX5LF48P"
     },
     "android": {
       "adaptiveIcon": {
@@ -41,7 +44,10 @@
               "pathPrefix": "/"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
