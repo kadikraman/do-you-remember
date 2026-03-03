@@ -17,7 +17,11 @@ const buildNumber =
   Constants.expoConfig?.ios?.buildNumber ??
   Constants.expoConfig?.android?.versionCode?.toString() ??
   '—';
-const updateId = Updates.updateId ? Updates.updateId.slice(0, 8) : 'dev';
+const updateId = Updates.updateId
+  ? Updates.updateId
+  : Updates.isEmbeddedLaunch
+    ? 'embedded'
+    : 'dev';
 
 export default function HomeScreen() {
   const router = useRouter();
