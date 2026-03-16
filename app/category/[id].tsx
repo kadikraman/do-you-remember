@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { QuizModal } from '@/components/quiz-modal';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebContainer } from '@/components/web-container';
-import { Colors } from '@/constants/theme';
 import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
+import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function CategoryScreen() {
@@ -124,14 +124,14 @@ const styles = StyleSheet.create({
   startBtn: {
     borderRadius: 14,
     paddingVertical: 16,
-    alignItems: 'center',
+    alignItems: 'center' as const,
   },
   startBtnPressed: {
     opacity: 0.85,
   },
   startBtnText: {
     color: '#fff',
-    fontWeight: '700',
+    fontWeight: '700' as const,
     fontSize: 18,
   },
 });

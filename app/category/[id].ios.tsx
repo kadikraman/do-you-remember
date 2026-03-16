@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
+import { useQuiz } from '@/hooks/use-quiz';
 import {
   BottomSheet,
   Button,
@@ -15,6 +15,8 @@ import {
 import {
   background,
   border,
+  animation,
+  Animation,
   buttonStyle,
   controlSize,
   cornerRadius,
@@ -24,15 +26,17 @@ import {
   padding,
   presentationDetents,
   presentationDragIndicator,
+  scaleEffect,
   tint,
 } from '@expo/ui/swift-ui/modifiers';
-import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
-import { useQuiz } from '@/hooks/use-quiz';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
   const [quizVisible, setQuizVisible] = useState(false);
+  const [btnPressed, setBtnPressed] = useState(false);
 
   const category = getCategoryById(id as CategoryId);
   const questions = category ? getQuestionsForCategory(category.id) : [];
@@ -71,8 +75,14 @@ export default function CategoryScreen() {
               buttonStyle('borderedProminent'),
               tint(category.color),
               controlSize('large'),
+              scaleEffect(btnPressed ? 1.1 : 1.0),
+              animation(Animation.spring({ response: 0.4, dampingFraction: 0.4 }), btnPressed),
             ]}
-            onPress={() => setQuizVisible(true)}
+            onPress={() => {
+              setBtnPressed(true);
+              setTimeout(() => setBtnPressed(false), 250);
+              setTimeout(() => setQuizVisible(true), 500);
+            }}
           />
         </VStack>
       </ScrollView>

@@ -365,7 +365,7 @@ Import from `@expo/ui/swift-ui/modifiers`.
 | `badge` | `(value?)` | Badge text |
 | `badgeProminence` | `('standard'\|'increased'\|'decreased')` | Badge prominence |
 | `environment` | `(key, value)` | Set environment (editMode, colorScheme) |
-| `animation` | `(animationType, animatedValue)` | Animation |
+| `animation` | `(animationType, animatedValue)` | Animation (see [deep dive](#animation-modifier-deep-dive-ios)) |
 | `contentTransition` | `(type, params?)` | Content transition animation |
 | `presentationDetents` | `(detents, options?)` | Sheet heights |
 | `presentationDragIndicator` | `(visibility)` | Sheet drag indicator |
@@ -576,6 +576,136 @@ import { CircularProgress, LinearProgress } from '@expo/ui/jetpack-compose';
 <CircularProgress progress={0.7} color="#6200EE" />
 <LinearProgress progress={null} />  {/* indeterminate */}
 ```
+
+---
+
+## Animation Modifier Deep Dive (iOS)
+
+The `animation` modifier applies SwiftUI animations to any animatable modifier (e.g. `scaleEffect`, `rotationEffect`, `opacity`, `offset`). When the tracked value changes, SwiftUI interpolates the animatable properties using the specified curve.
+
+```tsx
+import { animation, Animation, scaleEffect, rotationEffect, opacity, offset } from '@expo/ui/swift-ui/modifiers';
+```
+
+### The `animation()` modifier
+
+```tsx
+animation(animationObject, animatedValue)
+```
+
+- **animationObject** — created via `Animation.*` factory methods (see below)
+- **animatedValue** — a `boolean` or `number` that triggers the animation when it changes
+
+**Important:** The animation only plays when `animatedValue` changes between renders. Toggling a boolean or incrementing a number both work.
+
+### Animation Factory Methods
+
+| Method | Params | Description |
+|--------|--------|-------------|
+| `Animation.easeInOut` | `{ duration?: number }` | Ease in and out curve |
+| `Animation.easeIn` | `{ duration?: number }` | Ease in curve |
+| `Animation.easeOut` | `{ duration?: number }` | Ease out curve |
+| `Animation.linear` | `{ duration?: number }` | Linear curve |
+| `Animation.spring` | `{ response?, dampingFraction?, blendDuration?, duration?, bounce? }` | Spring physics (most common) |
+| `Animation.interpolatingSpring` | `{ mass?, stiffness?, damping?, initialVelocity?, duration?, bounce? }` | Low-level spring with mass/stiffness/damping |
+| `Animation.default` | — | System default animation |
+
+**Spring parameters explained:**
+- `response` — How fast the spring settles (seconds). Lower = snappier. Typical: 0.3–0.6
+- `dampingFraction` — How much bounce. 0 = infinite bounce, 1 = no bounce. Typical: 0.3–0.7
+- `bounce` — Alternative to dampingFraction. Positive = more bouncy, negative = overdamped
+
+**Interpolating spring parameters:**
+- `mass` — Weight on the spring. Lower mass = faster. Typical: 0.5–1.0
+- `stiffness` — Spring tension. Higher = faster snap. Typical: 100–300
+- `damping` — Friction. Lower = more oscillation. Typical: 5–20
+
+### Chainable Methods
+
+Both `.delay()` and `.repeat()` can be chained on any animation:
+
+```tsx
+// Delay start by 1 second
+Animation.easeInOut({ duration: 0.8 }).delay(1.0)
+
+// Repeat 3 times with autoreversal
+Animation.easeInOut({ duration: 0.6 }).repeat({ repeatCount: 3, autoreverses: true })
+
+// Chain both
+Animation.spring({ response: 0.4, dampingFraction: 0.5 }).delay(0.2).repeat({ repeatCount: 2, autoreverses: true })
+```
+
+### Animatable Modifiers
+
+These modifiers can be animated:
+- `scaleEffect(value)` — uniform scale, or `{ x, y }` for non-uniform
+- `rotationEffect(degrees)` — rotation in degrees
+- `opacity(value)` — 0.0 to 1.0
+- `offset({ x, y })` — position offset
+
+### Patterns
+
+**Bounce on tap (scale out and back in one press):**
+```tsx
+const [pressed, setPressed] = useState(false);
+
+<Button
+  label="Go!"
+  modifiers={[
+    scaleEffect(pressed ? 1.1 : 1.0),
+    animation(Animation.spring({ response: 0.4, dampingFraction: 0.4 }), pressed),
+  ]}
+  onPress={() => {
+    setPressed(true);
+    setTimeout(() => setPressed(false), 250);  // snap back
+    setTimeout(() => doAction(), 500);          // delayed action so user sees bounce
+  }}
+/>
+```
+
+**Toggle rotation:**
+```tsx
+const [toggled, setToggled] = useState(false);
+
+<VStack modifiers={[
+  rotationEffect(toggled ? 180 : 0),
+  animation(Animation.spring(), toggled),
+  onTapGesture(() => setToggled(v => !v)),
+]}>
+  <Text>Flip me</Text>
+</VStack>
+```
+
+**Incremental multi-effect (each tap adds more):**
+```tsx
+const [taps, setTaps] = useState(0);
+
+<VStack modifiers={[
+  scaleEffect(taps % 2 === 0 ? 1.0 : 1.2),
+  rotationEffect(taps * 45),
+  opacity(taps % 4 === 0 ? 1.0 : 0.7),
+  animation(Animation.spring({ response: 0.7, dampingFraction: 0.8 }), taps),
+  onTapGesture(() => setTaps(t => t + 1)),
+]} />
+```
+
+**Delayed + repeated:**
+```tsx
+<HStack modifiers={[
+  rotationEffect(active ? 180 : 0),
+  animation(
+    Animation.easeInOut({ duration: 0.6 }).repeat({ repeatCount: 3, autoreverses: true }),
+    active,
+  ),
+]} />
+```
+
+### Gotchas
+
+- **Animation is iOS-only.** Use platform-specific files (`.ios.tsx` / `.tsx` fallback) when using the animation modifier.
+- **The animation doesn't play if the value doesn't change.** Toggling the same boolean `true → true` does nothing — the value must actually differ between renders.
+- **Immediate actions hide the animation.** If tapping a button opens a sheet or navigates, the animation won't be visible. Use `setTimeout` to delay the action (300–500ms) so the user sees the bounce first.
+- **Prefer `VStack`/`HStack` as animation targets over `Text`.** Applying animatable modifiers directly to `Text` may not produce visible results. Wrap the text in a layout container and animate that instead.
 
 ---
 
