@@ -1,17 +1,18 @@
-import { useEffect } from 'react';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import ExpoObserve, { AppMetrics, AppMetricsRoot } from 'expo-observe';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
-import AppMetrics from 'expo-eas-observe';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-export default function RootLayout() {
+ExpoObserve.configure({ environment: 'custom' });
+
+function RootLayout() {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
-    AppMetrics.markFirstRender();
     AppMetrics.markInteractive();
   }, []);
 
@@ -28,3 +29,5 @@ export default function RootLayout() {
     </ThemeProvider>
   );
 }
+
+export default AppMetricsRoot.wrap(RootLayout);
