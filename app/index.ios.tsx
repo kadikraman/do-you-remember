@@ -1,6 +1,4 @@
-import { useRouter } from 'expo-router';
-import Constants from 'expo-constants';
-import * as Updates from 'expo-updates';
+import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
 import {
   Button,
   Form,
@@ -19,7 +17,9 @@ import {
   headerProminence,
   padding,
 } from '@expo/ui/swift-ui/modifiers';
-import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
+import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
+import * as Updates from 'expo-updates';
 
 const version = Constants.expoConfig?.version ?? '-';
 const buildNumber = Constants.expoConfig?.ios?.buildNumber ?? '-';
@@ -39,7 +39,7 @@ export default function HomeScreen() {
           header={
             <VStack alignment="leading" spacing={4} modifiers={[padding({ top: 24, bottom: 8 })]}>
               <Text modifiers={[font({ size: 32, weight: 'bold' })]}>
-                Do You Remember?
+              {process.env.EXPO_PUBLIC_HEADING}
               </Text>
               <Text modifiers={[foregroundStyle('secondaryLabel')]}>
                 Pick a category and test your memory.

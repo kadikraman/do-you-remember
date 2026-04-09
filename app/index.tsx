@@ -1,15 +1,15 @@
+import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
+import * as Updates from 'expo-updates';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import Constants from 'expo-constants';
-import * as Updates from 'expo-updates';
 
 import { CategoryCard } from '@/components/category-card';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebContainer } from '@/components/web-container';
-import { Colors } from '@/constants/theme';
 import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
+import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 const version = Constants.expoConfig?.version ?? '—';
@@ -37,10 +37,10 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
         >
           <ThemedText type="title" style={styles.title}>
-            Do You Remember?
+            {process.env.EXPO_PUBLIC_HEADING}
           </ThemedText>
           <ThemedText style={styles.subtitle}>
-            Pick a category and test your memory.
+            Totally differet subheading.
           </ThemedText>
 
           {CATEGORIES.map((category) => (

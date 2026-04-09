@@ -13,7 +13,10 @@ function RootLayout() {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
-    AppMetrics.markInteractive();
+    const timeout = setTimeout(() => {
+      AppMetrics.markInteractive();
+    }, Math.random() * 1000 + 500);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
