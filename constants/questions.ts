@@ -3,7 +3,6 @@ export type CategoryId = 'git' | 'http' | 'js-quirks' | 'css' | 'typescript' | '
 export interface Category {
   id: CategoryId;
   label: string;
-  emoji: string;
   description: string;
   color: string;
   iconName: string;
@@ -22,7 +21,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'git',
     label: 'Git Commands',
-    emoji: '🌿',
     description: 'Test your knowledge of Git commands, flags, and workflows. From basic commits to advanced rebasing — how sharp are your version control skills?',
     color: '#2D6A4F',
     iconName: 'arrow.triangle.branch',
@@ -30,7 +28,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'http',
     label: 'HTTP Status Codes',
-    emoji: '🌐',
     description: 'Do you know your 200s from your 500s? Test whether you can identify what each HTTP status code means — no Googling allowed.',
     color: '#7C3AED',
     iconName: 'globe',
@@ -38,7 +35,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'js-quirks',
     label: 'JavaScript Quirks',
-    emoji: '✨',
     description: 'JavaScript: the language that keeps on giving. Test your knowledge of its most infamous quirks, coercions, and "wat" moments.',
     color: '#D97706',
     iconName: 'curlybraces',
@@ -46,7 +42,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'css',
     label: 'CSS Tricks',
-    emoji: '🎨',
     description: 'Flexbox, specificity, box model madness — CSS looks simple until it isn\'t. Prove you can wrangle styles without crying.',
     color: '#0891B2',
     iconName: 'paintbrush',
@@ -54,7 +49,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'typescript',
     label: 'TypeScript Types',
-    emoji: '🔷',
     description: 'Generics, utility types, and the mysteries of `never`. See if your type-fu is strong enough to survive without `any`.',
     color: '#2563EB',
     iconName: 'function',
@@ -62,7 +56,6 @@ export const CATEGORIES: Category[] = [
   {
     id: 'terminal',
     label: 'Terminal / Shell',
-    emoji: '🖥️',
     description: 'Pipes, permissions, signals, and shortcuts. Do you actually know what those commands do, or do you just copy-paste from Stack Overflow?',
     color: '#059669',
     iconName: 'apple.terminal',

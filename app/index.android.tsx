@@ -15,7 +15,16 @@ import {
   paddingAll,
   padding,
 } from '@expo/ui/jetpack-compose/modifiers';
-import { CATEGORIES, getQuestionsForCategory } from '@/constants/questions';
+import { CATEGORIES, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
+
+const CATEGORY_ICONS: Record<CategoryId, string> = {
+  'git': '\u{1F33F}',
+  'http': '\u{1F310}',
+  'js-quirks': '\u2728',
+  'css': '\u{1F3A8}',
+  'typescript': '\u{1F537}',
+  'terminal': '\u{1F5A5}\uFE0F',
+};
 
 const version = Constants.expoConfig?.version ?? '-';
 const buildNumber =
@@ -67,7 +76,7 @@ export default function HomeScreen() {
                   modifiers={[fillMaxWidth(), paddingAll(4)]}
                 >
                   <Text style={{ fontSize: 28 }} modifiers={[padding(0, 0, 12, 0)]}>
-                    {category.emoji}
+                    {CATEGORY_ICONS[category.id]}
                   </Text>
                   <Column>
                     <Text style={{ typography: 'bodyLarge', fontWeight: 'bold' }}>

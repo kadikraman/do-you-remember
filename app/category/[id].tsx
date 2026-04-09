@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { QuizModal } from '@/components/quiz-modal';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 import { WebContainer } from '@/components/web-container';
 import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
 import { Colors } from '@/constants/theme';
@@ -46,7 +47,7 @@ export default function CategoryScreen() {
         >
           {/* Hero */}
           <View style={[styles.hero, { borderColor: category.color + '60', borderTopColor: category.color }]}>
-            <ThemedText style={styles.emoji}>{category.emoji}</ThemedText>
+            <IconSymbol name={category.iconName as any} size={44} color={category.color} style={styles.icon} />
             <ThemedText type="title" style={styles.categoryTitle}>
               {category.label}
             </ThemedText>
@@ -103,9 +104,7 @@ const styles = StyleSheet.create({
     padding: 24,
     marginBottom: 20,
   },
-  emoji: {
-    fontSize: 44,
-    lineHeight: 54,
+  icon: {
     marginBottom: 12,
     marginTop: 8,
   },

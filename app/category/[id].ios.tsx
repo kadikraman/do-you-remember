@@ -61,7 +61,7 @@ export default function CategoryScreen() {
     <Host style={{ flex: 1 }}>
       <ScrollView>
         <VStack alignment="leading" spacing={12} modifiers={[padding({ horizontal: 20, top: 24, bottom: 40 })]}>
-          <Text modifiers={[font({ size: 44 })]}>{category.emoji}</Text>
+          <Image systemName={category.iconName as any} size={44} color={category.color} />
           <Text modifiers={[font({ size: 32, weight: 'bold' })]}>{category.label}</Text>
           <Text modifiers={[foregroundStyle(category.color), font({ size: 14, weight: 'medium' })]}>
             {questions.length} questions in pool · 5 per quiz

@@ -19,6 +19,15 @@ import {
   paddingAll,
 } from '@expo/ui/jetpack-compose/modifiers';
 import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
+
+const CATEGORY_ICONS: Record<CategoryId, string> = {
+  'git': '\u{1F33F}',
+  'http': '\u{1F310}',
+  'js-quirks': '\u2728',
+  'css': '\u{1F3A8}',
+  'typescript': '\u{1F537}',
+  'terminal': '\u{1F5A5}\uFE0F',
+};
 import { useQuiz } from '@/hooks/use-quiz';
 
 export default function CategoryScreen() {
@@ -51,7 +60,7 @@ export default function CategoryScreen() {
         contentPadding={{ start: 20, end: 20, top: 24, bottom: 40 }}
         verticalArrangement={{ spacedBy: 12 }}
       >
-        <Text style={{ fontSize: 44 }}>{category.emoji}</Text>
+        <Text style={{ fontSize: 44 }}>{CATEGORY_ICONS[category.id]}</Text>
         <Text style={{ typography: 'headlineLarge', fontWeight: 'bold' }}>
           {category.label}
         </Text>

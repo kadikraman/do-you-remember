@@ -57,7 +57,7 @@ export default function HomeScreen() {
                 modifiers={[buttonStyle('plain')]}
               >
                 <HStack spacing={12}>
-                  <Text modifiers={[font({ size: 28 })]}>{category.emoji}</Text>
+                  <Image systemName={category.iconName as any} size={28} color={category.color} />
                   <VStack alignment="leading" spacing={2}>
                     <Text>{category.label}</Text>
                     <Text

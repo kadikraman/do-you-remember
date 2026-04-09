@@ -48,7 +48,7 @@ export function CategoryCard({ category, questionCount, onPress }: CategoryCardP
         ]}
       >
         <View style={styles.iconWrap}>
-          <ThemedText style={styles.emoji}>{category.emoji}</ThemedText>
+          <IconSymbol name={category.iconName as any} size={28} color={category.color} />
         </View>
         <View style={styles.content}>
           <ThemedText type="defaultSemiBold" style={styles.label}>
@@ -76,10 +76,6 @@ const styles = StyleSheet.create({
   iconWrap: {
     paddingHorizontal: 14,
     paddingVertical: 18,
-  },
-  emoji: {
-    fontSize: 28,
-    lineHeight: 36,
   },
   content: {
     flex: 1,
