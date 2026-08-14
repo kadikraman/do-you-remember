@@ -7,12 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "doyouremember",
     "userInterfaceStyle": "automatic",
-    "updates": {
-      "url": "https://u.expo.dev/276fe437-b229-4be3-82f2-99e262ed485c"
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.expokadi.doyouremember",
@@ -72,7 +66,6 @@
       "expo-font",
       "expo-image",
       "expo-web-browser",
-      "expo-updates",
       "expo-status-bar"
     ],
     "experiments": {
@@ -83,7 +76,7 @@
       "router": {},
       "eas": {
         "observe": {
-          "endpointUrl": "https://staging-o.expo.dev/eas-observe/"
+          "endpointUrl": "https://staging-o.expo.dev/"
         },
         "projectId": "ca8037bd-a162-4109-915b-1f0674254272"
       }

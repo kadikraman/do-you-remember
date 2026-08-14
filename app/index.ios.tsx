@@ -20,15 +20,9 @@ import {
 import Constants from 'expo-constants';
 import { ObserveInteractiveMarker } from 'expo-observe';
 import { useRouter } from 'expo-router';
-import * as Updates from 'expo-updates';
 
 const version = Constants.expoConfig?.version ?? '-';
 const buildNumber = Constants.expoConfig?.ios?.buildNumber ?? '-';
-const updateId = Updates.updateId
-  ? Updates.updateId
-  : Updates.isEmbeddedLaunch
-    ? 'embedded'
-    : 'dev';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -99,7 +93,7 @@ export default function HomeScreen() {
               font({ size: 11, design: 'monospaced' }),
             ]}
           >
-            v{version} ({buildNumber}) · {updateId}
+            v{version} ({buildNumber})
           </Text>
         </Section>
       </Form>

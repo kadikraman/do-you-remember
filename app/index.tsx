@@ -1,7 +1,6 @@
 import Constants from 'expo-constants';
 import { useObserve } from 'expo-observe';
 import { useRouter } from 'expo-router';
-import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,11 +18,6 @@ const buildNumber =
   Constants.expoConfig?.ios?.buildNumber ??
   Constants.expoConfig?.android?.versionCode?.toString() ??
   '—';
-const updateId = Updates.updateId
-  ? Updates.updateId
-  : Updates.isEmbeddedLaunch
-    ? 'embedded'
-    : 'dev';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -68,7 +62,7 @@ export default function HomeScreen() {
           </ThemedText>
 
           <ThemedText type="mono" style={[styles.versionInfo, { color: colors.icon }]}>
-            v{version} ({buildNumber}) · {updateId}
+            v{version} ({buildNumber})
           </ThemedText>
         </ScrollView>
       </SafeAreaView>

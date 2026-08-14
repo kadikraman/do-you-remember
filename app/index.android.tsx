@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
 import { useObserve } from 'expo-observe';
-import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import {
   Column,
@@ -31,11 +30,6 @@ const CATEGORY_ICONS: Record<CategoryId, string> = {
 const version = Constants.expoConfig?.version ?? '-';
 const buildNumber =
   Constants.expoConfig?.android?.versionCode?.toString() ?? '-';
-const updateId = Updates.updateId
-  ? Updates.updateId
-  : Updates.isEmbeddedLaunch
-    ? 'embedded'
-    : 'dev';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -110,7 +104,7 @@ export default function HomeScreen() {
           color="#A8A29E"
           style={{ typography: 'labelSmall', fontSize: 11 }}
         >
-          v{version} ({buildNumber}) · {updateId}
+          v{version} ({buildNumber})
         </Text>
       </LazyColumn>
     </Host>
