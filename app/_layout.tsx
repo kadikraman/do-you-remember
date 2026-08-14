@@ -1,5 +1,5 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import ExpoObserve, { AppMetrics, AppMetricsRoot } from 'expo-observe';
+import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router/react-navigation";
+import ExpoObserve, { AppMetrics, ObserveRoot } from 'expo-observe';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -33,4 +33,4 @@ function RootLayout() {
   );
 }
 
-export default AppMetricsRoot.wrap(RootLayout);
+export default ObserveRoot.wrap(RootLayout);

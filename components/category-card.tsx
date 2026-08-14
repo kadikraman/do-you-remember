@@ -29,9 +29,11 @@ export function CategoryCard({ category, questionCount, onPress }: CategoryCardP
   return (
     <Pressable
       onPressIn={() => {
+        // eslint-disable-next-line react-hooks/immutability -- Reanimated shared values are mutated via .value
         scale.value = withSpring(0.97, { damping: 15, stiffness: 300 });
       }}
       onPressOut={() => {
+        // eslint-disable-next-line react-hooks/immutability -- Reanimated shared values are mutated via .value
         scale.value = withSpring(1, { damping: 15, stiffness: 300 });
       }}
       onPress={onPress}

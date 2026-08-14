@@ -2,13 +2,13 @@ import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
 import {
-  Button,
-  Card,
   Column,
   Host,
   LazyColumn,
+  OutlinedCard,
   Row,
   Text,
+  TextButton,
 } from '@expo/ui/jetpack-compose';
 import {
   fillMaxWidth,
@@ -60,14 +60,12 @@ export default function HomeScreen() {
         {CATEGORIES.map((category) => {
           const count = getQuestionsForCategory(category.id).length;
           return (
-            <Card
+            <OutlinedCard
               key={category.id}
-              variant="outlined"
               modifiers={[fillMaxWidth()]}
             >
-              <Button
-                variant="borderless"
-                onPress={() => router.push(`/category/${category.id}`)}
+              <TextButton
+                onClick={() => router.push(`/category/${category.id}`)}
                 modifiers={[fillMaxWidth()]}
               >
                 <Row
@@ -87,8 +85,8 @@ export default function HomeScreen() {
                     </Text>
                   </Column>
                 </Row>
-              </Button>
-            </Card>
+              </TextButton>
+            </OutlinedCard>
           );
         })}
 

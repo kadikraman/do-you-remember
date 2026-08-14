@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import {
-  BottomSheet,
   Button,
-  Card,
   Column,
   Host,
   LazyColumn,
+  ModalBottomSheet,
+  OutlinedButton,
+  OutlinedCard,
   Row,
-  Spacer,
   Text,
+  TextButton,
 } from '@expo/ui/jetpack-compose';
 import {
-  background,
-  border,
   fillMaxWidth,
   padding,
   paddingAll,
 } from '@expo/ui/jetpack-compose/modifiers';
 import { getCategoryById, getQuestionsForCategory, type CategoryId } from '@/constants/questions';
+import { useQuiz } from '@/hooks/use-quiz';
 
 const CATEGORY_ICONS: Record<CategoryId, string> = {
   'git': '\u{1F33F}',
@@ -28,7 +28,6 @@ const CATEGORY_ICONS: Record<CategoryId, string> = {
   'typescript': '\u{1F537}',
   'terminal': '\u{1F5A5}\uFE0F',
 };
-import { useQuiz } from '@/hooks/use-quiz';
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -74,9 +73,8 @@ export default function CategoryScreen() {
           {category.description}
         </Text>
         <Button
-          variant="default"
-          onPress={() => setQuizVisible(true)}
-          color={category.color}
+          onClick={() => setQuizVisible(true)}
+          colors={{ containerColor: category.color }}
           modifiers={[fillMaxWidth()]}
         >
           Try me!
@@ -85,7 +83,7 @@ export default function CategoryScreen() {
 
       {quizVisible && (
         <Host matchContents>
-          <BottomSheet
+          <ModalBottomSheet
             onDismissRequest={() => setQuizVisible(false)}
             skipPartiallyExpanded
           >
@@ -105,12 +103,9 @@ export default function CategoryScreen() {
                       <Text style={{ typography: 'labelLarge', fontWeight: 'bold' }}>
                         {quiz.currentIndex + 1} / {quiz.questions.length}
                       </Text>
-                      <Button
-                        variant="borderless"
-                        onPress={() => setQuizVisible(false)}
-                      >
+                      <TextButton onClick={() => setQuizVisible(false)}>
                         ✕
-                      </Button>
+                      </TextButton>
                     </Row>
 
                     {/* Question */}
@@ -130,11 +125,10 @@ export default function CategoryScreen() {
                           : undefined;
 
                       return (
-                        <Button
+                        <OutlinedButton
                           key={i}
-                          variant="outlined"
-                          onPress={() => quiz.handleSelect(i)}
-                          color={color}
+                          onClick={() => quiz.handleSelect(i)}
+                          colors={{ contentColor: color }}
                           modifiers={[fillMaxWidth()]}
                         >
                           <Row
@@ -151,19 +145,21 @@ export default function CategoryScreen() {
                             {isCorrect && <Text color="#22C55E">✓</Text>}
                             {isIncorrect && <Text color="#EF4444">✗</Text>}
                           </Row>
-                        </Button>
+                        </OutlinedButton>
                       );
                     })}
 
                     {/* Feedback */}
                     {quiz.phase === 'feedback' && (
-                      <Card
-                        variant="outlined"
-                        color={quiz.isCorrect ? '#22C55E20' : '#EF444420'}
-                        modifiers={[
-                          fillMaxWidth(),
-                          border(2, quiz.isCorrect ? '#22C55E' : '#EF4444'),
-                        ]}
+                      <OutlinedCard
+                        colors={{
+                          containerColor: quiz.isCorrect ? '#22C55E20' : '#EF444420',
+                        }}
+                        border={{
+                          width: 2,
+                          color: quiz.isCorrect ? '#22C55E' : '#EF4444',
+                        }}
+                        modifiers={[fillMaxWidth()]}
                       >
                         <Column modifiers={[paddingAll(16)]}>
                           <Text
@@ -189,15 +185,14 @@ export default function CategoryScreen() {
                             </Text>
                           )}
                           <Button
-                            variant="default"
-                            onPress={() => quiz.handleNext(() => setQuizVisible(false))}
-                            color="#F59E0B"
+                            onClick={() => quiz.handleNext(() => setQuizVisible(false))}
+                            colors={{ containerColor: '#F59E0B' }}
                             modifiers={[fillMaxWidth()]}
                           >
                             {quiz.isLast ? 'Finish' : 'Next Question'}
                           </Button>
                         </Column>
-                      </Card>
+                      </OutlinedCard>
                     )}
                   </>
                 ) : (
@@ -205,7 +200,7 @@ export default function CategoryScreen() {
                 )}
               </LazyColumn>
             </Host>
-          </BottomSheet>
+          </ModalBottomSheet>
         </Host>
       )}
     </Host>
