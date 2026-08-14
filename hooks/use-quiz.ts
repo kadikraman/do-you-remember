@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FEEDBACK, getQuestionsForCategory, type CategoryId, type Question } from '@/constants/questions';
+import { logQuestionAnswered, logQuizCompleted, logQuizStarted } from '@/lib/quiz-events';
 
 const QUIZ_SIZE = 5;
 
@@ -26,6 +27,10 @@ export function useQuiz(categoryId: CategoryId, visible: boolean) {
   const isLast = currentIndex === questions.length - 1;
   const isCorrect = selectedIndex !== null && selectedIndex === question?.correctIndex;
 
+  // When the current question was shown, and how many answers were correct so far.
+  const questionShownAtRef = useRef(0);
+  const correctCountRef = useRef(0);
+
   useEffect(() => {
     if (visible) {
       setQuestions(sampleQuestions(categoryId));
@@ -33,6 +38,9 @@ export function useQuiz(categoryId: CategoryId, visible: boolean) {
       setSelectedIndex(null);
       setPhase('answering');
       setFeedbackMessage('');
+      correctCountRef.current = 0;
+      questionShownAtRef.current = Date.now();
+      logQuizStarted(categoryId, QUIZ_SIZE);
     }
   }, [visible, categoryId]);
 
@@ -41,11 +49,14 @@ export function useQuiz(categoryId: CategoryId, visible: boolean) {
     setSelectedIndex(index);
     setPhase('feedback');
     const correct = index === question.correctIndex;
+    if (correct) correctCountRef.current += 1;
+    logQuestionAnswered(categoryId, currentIndex, correct, questionShownAtRef.current);
     setFeedbackMessage(pickRandom(correct ? FEEDBACK.correct : FEEDBACK.incorrect));
   }
 
   function handleNext(onFinish: () => void) {
     if (isLast) {
+      logQuizCompleted(categoryId, correctCountRef.current, questions.length);
       onFinish();
       return;
     }
@@ -53,6 +64,7 @@ export function useQuiz(categoryId: CategoryId, visible: boolean) {
     setSelectedIndex(null);
     setPhase('answering');
     setFeedbackMessage('');
+    questionShownAtRef.current = Date.now();
   }
 
   function getOptionState(index: number): 'idle' | 'correct' | 'incorrect' {

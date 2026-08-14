@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   Modal,
   Pressable,
@@ -16,6 +16,7 @@ import { WebContainer } from '@/components/web-container';
 import { Colors } from '@/constants/theme';
 import { FEEDBACK, getQuestionsForCategory, type CategoryId, type Question } from '@/constants/questions';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { logQuestionAnswered, logQuizCompleted, logQuizStarted } from '@/lib/quiz-events';
 
 const QUIZ_SIZE = 5;
 
@@ -47,12 +48,19 @@ export function QuizModal({ visible, categoryId, onClose }: QuizModalProps) {
   const [phase, setPhase] = useState<Phase>('answering');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  // When the current question was shown, and how many answers were correct so far.
+  const questionShownAtRef = useRef(0);
+  const correctCountRef = useRef(0);
+
   const initQuiz = useCallback(() => {
     setQuestions(sampleQuestions(categoryId));
     setCurrentIndex(0);
     setSelectedIndex(null);
     setPhase('answering');
     setFeedbackMessage('');
+    correctCountRef.current = 0;
+    questionShownAtRef.current = Date.now();
+    logQuizStarted(categoryId, QUIZ_SIZE);
   }, [categoryId]);
 
   const question = questions[currentIndex];
@@ -63,11 +71,14 @@ export function QuizModal({ visible, categoryId, onClose }: QuizModalProps) {
     setSelectedIndex(index);
     setPhase('feedback');
     const correct = index === question.correctIndex;
+    if (correct) correctCountRef.current += 1;
+    logQuestionAnswered(categoryId, currentIndex, correct, questionShownAtRef.current);
     setFeedbackMessage(pickRandom(correct ? FEEDBACK.correct : FEEDBACK.incorrect));
   }
 
   function handleNext() {
     if (isLast) {
+      logQuizCompleted(categoryId, correctCountRef.current, questions.length);
       onClose();
       return;
     }
@@ -75,6 +86,7 @@ export function QuizModal({ visible, categoryId, onClose }: QuizModalProps) {
     setSelectedIndex(null);
     setPhase('answering');
     setFeedbackMessage('');
+    questionShownAtRef.current = Date.now();
   }
 
   const isCorrect = selectedIndex !== null && selectedIndex === question?.correctIndex;
