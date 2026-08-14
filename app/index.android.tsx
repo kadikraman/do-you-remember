@@ -97,6 +97,15 @@ export default function HomeScreen() {
           );
         })}
 
+        <TextButton
+          onClick={() => router.push('/observe-lab')}
+          modifiers={[fillMaxWidth()]}
+        >
+          <Text color="#F59E0B" style={{ typography: 'bodyLarge', fontWeight: 'bold' }}>
+            Observe Lab →
+          </Text>
+        </TextButton>
+
         <Text
           color="#A8A29E"
           style={{ typography: 'labelSmall', fontSize: 11 }}

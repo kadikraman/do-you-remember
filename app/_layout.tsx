@@ -1,13 +1,12 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router/react-navigation";
-import Constants from 'expo-constants';
 import { Observe, ObserveRoot, useObserve } from 'expo-observe';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { setBaseGlobalAttributes } from '@/lib/observe';
 
 Observe.configure({
   environment: 'playground',
@@ -18,10 +17,7 @@ Observe.configure({
   integrations: { 'expo-router': true },
 });
 
-Observe.setGlobalAttributes({
-  appVersion: Constants.expoConfig?.version ?? 'unknown',
-  updateId: Updates.updateId ?? (Updates.isEmbeddedLaunch ? 'embedded' : 'dev'),
-});
+setBaseGlobalAttributes();
 
 function RootLayout() {
   const colorScheme = useColorScheme();
@@ -42,6 +38,10 @@ function RootLayout() {
         <Stack.Screen
           name="category/[id]"
           options={{ title: '', headerBackTitle: 'Home' }}
+        />
+        <Stack.Screen
+          name="observe-lab"
+          options={{ title: 'Observe Lab', headerBackTitle: 'Home' }}
         />
       </Stack>
       <StatusBar style="auto" />

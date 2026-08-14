@@ -82,6 +82,17 @@ export default function HomeScreen() {
         </Section>
 
         <Section>
+          <Button onPress={() => router.push('/observe-lab')} modifiers={[buttonStyle('plain')]}>
+            <HStack spacing={12}>
+              <Image systemName="waveform.path.ecg" size={22} color="#F59E0B" />
+              <Text>Observe Lab</Text>
+              <Spacer />
+              <Image systemName="chevron.right" size={14} color="secondary" />
+            </HStack>
+          </Button>
+        </Section>
+
+        <Section>
           <Text
             modifiers={[
               foregroundStyle('quaternaryLabel'),

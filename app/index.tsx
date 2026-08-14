@@ -59,6 +59,14 @@ export default function HomeScreen() {
             />
           ))}
 
+          <ThemedText
+            type="link"
+            style={styles.labLink}
+            onPress={() => router.push('/observe-lab')}
+          >
+            Observe Lab →
+          </ThemedText>
+
           <ThemedText type="mono" style={[styles.versionInfo, { color: colors.icon }]}>
             v{version} ({buildNumber}) · {updateId}
           </ThemedText>
@@ -93,5 +101,9 @@ const styles = StyleSheet.create({
     opacity: 0.4,
     textAlign: 'center',
     marginTop: 16,
+  },
+  labLink: {
+    marginTop: 20,
+    textAlign: 'center',
   },
 });
