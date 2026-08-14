@@ -1,6 +1,8 @@
 import Constants from 'expo-constants';
+import { useObserve } from 'expo-observe';
 import { useRouter } from 'expo-router';
 import * as Updates from 'expo-updates';
+import { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -27,6 +29,11 @@ export default function HomeScreen() {
   const router = useRouter();
   const scheme = useColorScheme() ?? 'light';
   const colors = Colors[scheme];
+  const { markInteractive } = useObserve();
+
+  useEffect(() => {
+    markInteractive();
+  }, [markInteractive]);
 
   return (
     <ThemedView style={styles.container}>

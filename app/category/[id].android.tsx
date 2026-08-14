@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useObserve } from 'expo-observe';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import {
   Button,
@@ -38,12 +39,14 @@ export default function CategoryScreen() {
   const questions = category ? getQuestionsForCategory(category.id) : [];
 
   const quiz = useQuiz(category?.id ?? 'git', quizVisible);
+  const { markInteractive } = useObserve();
 
   useEffect(() => {
     if (category) {
       navigation.setOptions({ title: category.label });
+      markInteractive();
     }
-  }, [category, navigation]);
+  }, [category, navigation, markInteractive]);
 
   if (!category) {
     return (

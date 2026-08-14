@@ -29,6 +29,7 @@ import {
   scaleEffect,
   tint,
 } from '@expo/ui/swift-ui/modifiers';
+import { useObserve } from 'expo-observe';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 
@@ -42,12 +43,14 @@ export default function CategoryScreen() {
   const questions = category ? getQuestionsForCategory(category.id) : [];
 
   const quiz = useQuiz(category?.id ?? 'git', quizVisible);
+  const { markInteractive } = useObserve();
 
   useEffect(() => {
     if (category) {
       navigation.setOptions({ title: category.label });
+      markInteractive();
     }
-  }, [category, navigation]);
+  }, [category, navigation, markInteractive]);
 
   if (!category) {
     return (

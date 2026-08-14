@@ -1,6 +1,8 @@
 import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
+import { useObserve } from 'expo-observe';
 import * as Updates from 'expo-updates';
+import { useEffect } from 'react';
 import {
   Column,
   Host,
@@ -37,6 +39,11 @@ const updateId = Updates.updateId
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { markInteractive } = useObserve();
+
+  useEffect(() => {
+    markInteractive();
+  }, [markInteractive]);
 
   return (
     <Host style={{ flex: 1 }}>

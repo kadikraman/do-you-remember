@@ -14,6 +14,8 @@ Observe.configure({
   sampleRate: 1,
   // Dispatch metrics from local development builds too. Has no effect on release builds.
   dispatchInDebug: true,
+  // Per-route navigation metrics (cold_ttr, warm_ttr, tti tagged with the route pattern).
+  integrations: { 'expo-router': true },
 });
 
 Observe.setGlobalAttributes({

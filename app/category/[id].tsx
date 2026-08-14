@@ -1,3 +1,4 @@
+import { useObserve } from 'expo-observe';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
@@ -22,12 +23,14 @@ export default function CategoryScreen() {
 
   const category = getCategoryById(id as CategoryId);
   const questions = category ? getQuestionsForCategory(category.id) : [];
+  const { markInteractive } = useObserve();
 
   useEffect(() => {
     if (category) {
       navigation.setOptions({ title: category.label });
+      markInteractive();
     }
-  }, [category, navigation]);
+  }, [category, navigation, markInteractive]);
 
   if (!category) {
     return (

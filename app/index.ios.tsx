@@ -18,6 +18,7 @@ import {
   padding,
 } from '@expo/ui/swift-ui/modifiers';
 import Constants from 'expo-constants';
+import { ObserveInteractiveMarker } from 'expo-observe';
 import { useRouter } from 'expo-router';
 import * as Updates from 'expo-updates';
 
@@ -33,7 +34,10 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <Host style={{ flex: 1 }}>
+    <>
+      {/* Declarative variant of markInteractive(); fires once on mount. */}
+      <ObserveInteractiveMarker params={{ surface: 'swift-ui' }} />
+      <Host style={{ flex: 1 }}>
       <Form>
         <Section
           header={
@@ -88,6 +92,7 @@ export default function HomeScreen() {
           </Text>
         </Section>
       </Form>
-    </Host>
+      </Host>
+    </>
   );
 }
