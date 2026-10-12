@@ -8,6 +8,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { setBaseGlobalAttributes } from '@/lib/observe';
+import NativeCrash from '@/modules/native-crash/src/NativeCrashModule';
 
 const SEVERITIES = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'] as const;
 type Severity = (typeof SEVERITIES)[number];
@@ -71,6 +72,19 @@ export default function ObserveLabScreen() {
         setTimeout(() => {
           throw new Error('Uncaught exception from Observe Lab (setTimeout)');
         }, 50);
+      },
+    },
+    {
+      title: 'Native crash (iOS)',
+      hint: 'Swift fatalError; MetricKit reports it on next launch',
+      onPress: () => {
+        const nativeCrash = NativeCrash;
+        if (!nativeCrash) {
+          note('NativeCrash module not available on this platform');
+          return;
+        }
+        note('crashing natively…');
+        setTimeout(() => nativeCrash.crash('button pressed in Observe Lab'), 300);
       },
     },
     {

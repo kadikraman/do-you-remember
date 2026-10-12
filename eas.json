@@ -13,7 +13,8 @@
     },
     "production": {
       "autoIncrement": true,
-      "uploadSourceMaps": true
+      "uploadSourceMaps": true,
+      "buildArtifactPaths": ["ios/build/*.dSYM.zip"]
     }
   }
 }
