@@ -15,6 +15,8 @@ Observe.configure({
   dispatchInDebug: true,
   // Per-route navigation metrics (cold_ttr, warm_ttr, tti tagged with the route pattern).
   integrations: { 'expo-router': true },
+  // Record every network request as a trace span. Opt-in; each span counts toward the quota.
+  networkTraces: true,
 });
 
 setBaseGlobalAttributes();

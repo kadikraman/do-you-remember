@@ -163,6 +163,32 @@ export default function ObserveLabScreen() {
 
   const utilities: { title: string; hint: string; onPress: () => void }[] = [
     {
+      title: 'Fire network requests',
+      hint: 'GET 200, GET 500, POST, and a host that does not resolve',
+      onPress: () => {
+        const requests: { label: string; run: () => Promise<Response> }[] = [
+          { label: 'GET 200', run: () => fetch('https://httpbin.org/get') },
+          { label: 'GET 500', run: () => fetch('https://httpbin.org/status/500') },
+          {
+            label: 'POST',
+            run: () =>
+              fetch('https://httpbin.org/post', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ lab: true }),
+              }),
+          },
+          { label: 'bad host', run: () => fetch('https://does-not-exist.invalid/') },
+        ];
+        for (const { label, run } of requests) {
+          run()
+            .then((response) => note(`${label} → ${response.status}`))
+            .catch((e) => note(`${label} failed: ${String(e)}`));
+        }
+        note('4 requests fired; flush to export the spans');
+      },
+    },
+    {
       title: 'Flush events now',
       hint: 'Observe.dispatchEvents()',
       onPress: () => {
