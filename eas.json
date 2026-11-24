@@ -14,7 +14,10 @@
     "production": {
       "autoIncrement": true,
       "uploadSourceMaps": true,
-      "buildArtifactPaths": ["ios/build/*.dSYM.zip"]
+      "buildArtifactPaths": [
+        "ios/build/*.dSYM.zip",
+        "android/app/build/outputs/mapping/release/mapping.txt"
+      ]
     }
   }
 }

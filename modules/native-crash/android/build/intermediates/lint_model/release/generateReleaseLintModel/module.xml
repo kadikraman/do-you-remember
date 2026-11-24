@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="/Users/kadi/dev/projects/do-you-remember/modules/native-crash/android"
+    name=":native-crash"
+    type="LIBRARY"
+    maven="expo.modules.nativecrash:native-crash:1.0.0"
+    agpVersion="9.2.1"
+    buildFolder="build"
+    bootClassPath="/Users/kadi/Library/Android/sdk/platforms/android-37.0/android.jar:/Users/kadi/Library/Android/sdk/build-tools/36.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-37.0"
+    neverShrinking="true"
+    highlightGradualR8Api="false">
+  <lintOptions
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

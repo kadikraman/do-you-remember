@@ -1,9 +1,9 @@
 import { NativeModule, requireOptionalNativeModule } from 'expo';
 
 declare class NativeCrashModule extends NativeModule<{}> {
-  /** Terminates the process with a Swift fatalError. Never returns. */
-  crash(reason: string): never;
+  /** Terminates the process: Swift fatalError on iOS, uncaught Kotlin exception on Android. */
+  crash(reason: string): void;
 }
 
-// Only built for Apple platforms. Null on Android and web.
+// Null on web.
 export default requireOptionalNativeModule<NativeCrashModule>('NativeCrash');

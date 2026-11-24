@@ -1,6 +1,6 @@
 import { Observe, ObserveErrorBoundary, useObserve } from 'expo-observe';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -75,8 +75,11 @@ export default function ObserveLabScreen() {
       },
     },
     {
-      title: 'Native crash (iOS)',
-      hint: 'Swift fatalError; MetricKit reports it on next launch',
+      title: 'Native crash',
+      hint:
+        Platform.OS === 'android'
+          ? 'uncaught Kotlin exception; reported on next launch'
+          : 'Swift fatalError; MetricKit reports it on next launch',
       onPress: () => {
         const nativeCrash = NativeCrash;
         if (!nativeCrash) {
